@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rede de Apoio Seguro - Moçambique</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--roxo-claro:#e8d5f2;--roxo-medio:#b185c8;--roxo-escuro:#7a4a9e;--rosa-bebe:#ffd6e8;--rosa-claro:#fff0f6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:var(--rosa-claro);color:#4a2c5a}
+.capa{width:100%;height:300px;background:linear-gradient(rgba(122,74,158,0.5),rgba(255,214,232,0.7)), url('IMG_9467.jpeg');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;flex-direction:column;color:white;text-align:center}
+.capa h1{font-size:29px;font-weight:700}
+.capa h2{font-size:13px;margin-top:10px;background:rgba(255,255,255,0.95);color:#7a4a9e;padding:8px 20px;border-radius:25px}
+.container{max-width:520px;margin:-25px auto 20px;padding:0 15px}
+.card{background:white;margin:14px 0;padding:20px;border-radius:20px;box-shadow:0 8px 25px rgba(122,74,158,0.12);border:1px solid #ffd6e8}
+.card h3{color:#7a4a9e;margin-bottom:10px;font-size:16px}
+.btn{border:none;padding:14px;border-radius:30px;width:100%;font-weight:600;cursor:pointer}
+.btn-roxo{background:linear-gradient(135deg,#b185c8,#7a4a9e);color:white}
+select,input{width:100%;padding:13px;margin:7px 0;border-radius:15px;border:1.5px solid #e8d5f2;font-family:'Poppins';background:#fefcff;font-size:14px}
+.voluntaria-card{border:1.5px solid #e8d5f2;padding:14px;margin:10px 0;border-radius:15px;background:linear-gradient(135deg,#fefcff,#fff0f6)}
+.badge-prov{background:#7a4a9e;color:white;padding:4px 10px;border-radius:15px;font-size:11px;font-weight:600}
+footer{text-align:center;padding:20px;font-size:11px;color:#b185c8}
+</style>
+</head>
+<body>
+
+<div class="capa">
+<h1>🌸 Rede de Apoio Seguro</h1>
+<h2>✨ Estás segura aqui - Moçambique ✨</h2>
+</div>
+
+<div class="container">
+
+<!-- PARTE 1: VÍTIMA PRECISA DE APOIO - MOÇAMBIQUE INTEIRO -->
+<div class="card">
+<h3>💜 Precisas de apoio? Escolhe onde estás:</h3>
+<select id="provinciaVitima">
+<option value="">Escolhe tua província</option>
+<option>Maputo Cidade</option>
+<option>Maputo Província</option>
+<option>Gaza</option>
+<option>Inhambane</option>
+<option>Sofala</option>
+<option>Manica</option>
+<option>Tete</option>
+<option>Zambézia</option>
+<option selected>Nampula</option>
+<option>Cabo Delgado</option>
+<option>Niassa</option>
+</select>
+<select id="tipoViolencia">
+<option>💔 Violência Física</option>
+<option>🧠 Violência Psicológica</option>
+<option>🚨 Risco de Feminicídio</option>
+<option>😔 Depressão / Ansiedade</option>
+<option>⚖️ Apoio Jurídico</option>
+<option>🏠 Abrigo / Casa Segura</option>
+<option>🤝 Apoio Comunitário</option>
+</select>
+<input type="text" id="bairroVitima" placeholder="Teu bairro / distrito ex: Muhaivire">
+<button class="btn btn-roxo" onclick="pedirAjuda()">💜 VER ANJOS PRÓXIMOS DE MIM</button>
+</div>
+
+<div class="card" id="resultado" style="display:none">
+<h3>💗 Anjos disponíveis em Moçambique:</h3>
+<div id="listaAjudantes"></div>
+</div>
+
+<!-- PARTE 2: QUERO SER ANJO - MOÇAMBIQUE INTEIRO -->
+<div class="card" style="background:linear-gradient(135deg,#e8d5f2,#ffd6e8)">
+<h3>🤝 Quero ser Anjo - Moçambique inteiro</h3>
+<p style="font-size:11px;margin-bottom:8px">Podes ajudar de qualquer província</p>
+<input type="text" id="nomeVol" placeholder="Teu nome completo">
+<input type="tel" id="telVol" placeholder="Teu WhatsApp obrigatório ex: 84xxxxxxx">
+<select id="provVol">
+<option value="">Tua província</option>
+<option>Maputo Cidade</option>
+<option>Maputo Província</option>
+<option>Gaza</option>
+<option>Inhambane</option>
+<option>Sofala</option>
+<option>Manica</option>
+<option>Tete</option>
+<option>Zambézia</option>
+<option>Nampula</option>
+<option>Cabo Delgado</option>
+<option>Niassa</option>
+</select>
+<input type="text" id="bairroVol" placeholder="Teu distrito / bairro ex: Muhaivire - Nampula">
+<select id="skillVol">
+<option>Apoio Comunitário</option>
+<option>Apoio Jurídico</option>
+<option>Apoio Psicológico</option>
+<option>Abrigo Temporário</option>
+<option>Acompanhamento Hospital/Esquadra</option>
+</select>
+<button class="btn" style="background:white;color:#7a4a9e" onclick="cadastrarAnjo()">💜 Enviar pedido para Charmila aprovar</button>
+</div>
+
+<!-- PAINEL ADMIN - SÓ TU VÊS -->
+<div class="card" id="painelAdmin" style="display:none;border:2px dashed #7a4a9e;background:#fcf8ff">
+<h3>🔐 Painel Administradora - 850730250</h3>
+<p style="font-size:11px">Tu és a administradora Charmila - aqui aprovas novos Anjos</p>
+<div id="stats" style="margin:10px 0;background:white;padding:10px;border-radius:12px;font-size:12px"></div>
+<div id="listaPendentes" style="margin:12px 0"></div>
+<div style="display:flex;gap:8px">
+<button class="btn btn-roxo" style="flex:1" onclick="verPendentes()">⏳ Pendentes</button>
+<button class="btn" style="flex:1;background:#e8d5f2;color:#7a4a9e" onclick="verAprovados()">✅ Aprovados</button>
+</div>
+</div>
+
+<div class="card" id="cardAdminInfo" style="text-align:center;font-size:11px">
+Para entrares como administradora usa:<br><b style="color:#7a4a9e">teusite.com/?admin=850730250</b>
+</div>
+
+</div>
+
+<footer>Rede de Apoio Seguro • Moçambique inteiro<br>Administradora: Charmila Elija • 850730250 💜</footer>
+
+<script>
+// DADOS INICIAIS
+let ajudantes = JSON.parse(localStorage.getItem('anjosAprovadosMZ')) || [
+{nome:"Charmila Elija - Coord. Geral", provincia:"Nampula", bairro:"Muhaivire", tel:"+258850730250", skill:"Coordenação e Apoio Jurídico", dist:"0.5"},
+{nome:"Voluntária Muhaivire", provincia:"Nampula", bairro:"Muhaivire", tel:"+258850730250", skill:"Apoio Comunitário", dist:"0.8"}
+];
+let pendentes = JSON.parse(localStorage.getItem('anjosPendentesMZ')) || [];
+
+function pedirAjuda(){
+let prov=document.getElementById('provinciaVitima').value;
+let bairro=document.getElementById('bairroVitima').value;
+let tipo=document.getElementById('tipoViolencia').value;
+if(!prov){alert("Escolhe tua província 💜");return;}
+document.getElementById('resultado').style.display='block';
+let filtrados = ajudantes.filter(a=> a.provincia===prov || prov==="");
+// Se não houver da província, mostra todos
+if(filtrados.length===0) filtrados=ajudantes;
+let html=`<small style="color:#b185c8">Mostrando Anjos de ${prov} - ${bairro}</small><br><br>`;
+filtrados.forEach(a=>{
+html+=`<div class="voluntaria-card"><b>${a.nome}</b> <span class="badge-prov">${a.provincia}</span><br><small>📍 ${a.bairro} • ${a.skill}</small><br><a href="https://wa.me/${a.tel.replace(/[^0-9]/g,'')}?text=Olá%20preciso%20de%20${tipo}%20em%20${prov}%20-%20${bairro}" style="background:linear-gradient(135deg,#7a4a9e,#b185c8);color:white;padding:9px 15px;border-radius:20px;text-decoration:none;display:inline-block;margin-top:8px;font-size:13px">💬 Pedir ajuda no WhatsApp</a></div>`;
+});
+document.getElementById('listaAjudantes').innerHTML=html;
+document.getElementById('resultado').scrollIntoView({behavior:'smooth'});
+}
+
+function cadastrarAnjo(){
+let nome=document.getElementById('nomeVol').value.trim();
+let tel=document.getElementById('telVol').value.trim();
+let prov=document.getElementById('provVol').value;
+let bairro=document.getElementById('bairroVol').value.trim() || prov;
+let skill=document.getElementById('skillVol').value;
+if(!nome ||!tel ||!prov){alert("Nome, WhatsApp e Província são obrigatórios 💜");return;}
+
+// Formata número
+let telLimpo = tel.replace(/[^0-9]/g,'');
+if(!telLimpo.startsWith('258')) telLimpo='258'+telLimpo;
+
+let novo={nome,tel:"+258"+telLimpo.slice(-9),provincia:prov,bairro,skill,dist:(Math.random()*5).toFixed(1),data:new Date().toLocaleDateString(),status:"pendente"};
+pendentes.push(novo);
+localStorage.setItem('anjosPendentesMZ', JSON.stringify(pendentes));
+
+// ENVIA AVISO DIRETO PARA TI - 850730250
+let msg = `*NOVO PEDIDO DE ANJO* 💜%0A%0A Nome: ${nome}%0A Tel: ${tel}%0A Província: ${prov}%0A Bairro: ${bairro}%0A Ajuda: ${skill}%0A%0APara aprovar entra em: teusite.com/?admin=850730250`;
+window.open(`https://wa.me/258850730250?text=${msg}`, '_blank');
+
+alert(`Obrigada ${nome}! 💜 Pedido enviado para a administradora Charmila (850730250). Assim que ela aprovar, vais aparecer como Anjo em ${prov}.`);
+document.getElementById('nomeVol').value="";document.getElementById('telVol').value="";document.getElementById('bairroVol').value="";
+}
+
+// ADMIN - SÓ COM?admin=850730250
+if(window.location.search.includes('admin=850730250')){
+document.getElementById('painelAdmin').style.display='block';
+document.getElementById('cardAdminInfo').style.display='none';
+verPendentes();
+}
+
+function atualizarStats(){
+document.getElementById('stats').innerHTML=`<b>📊 Resumo:</b> ${ajudantes.length} Anjos aprovados | ${pendentes.length} pendentes para aprovar`;
+}
+
+function verPendentes(){
+atualizarStats();
+let html=""; if(pendentes.length===0) html="<small style='color:green'>✅ Nenhum pedido pendente - tudo em dia!</small>";
+pendentes.forEach((p,i)=>{
+html+=`<div class="voluntaria-card" style="border-left:4px solid orange"><b>${p.nome}</b> - ${p.tel}<br><small>📍 ${p.provincia} - ${p.bairro} • ${p.skill} • ${p.data}</small><br><button onclick="aprovar(${i})" style="background:#7a4a9e;color:white;border:none;padding:10px 18px;border-radius:20px;margin-top:8px;font-weight:600">✅ Aprovar e adicionar na comunidade</button> <button onclick="rejeitar(${i})" style="background:#ff6b6b;color:white;border:none;padding:10px 15px;border-radius:20px;margin-top:8px">❌ Rejeitar</button></div>`;
+});
+document.getElementById('listaPendentes').innerHTML=html;
+}
+
+function verAprovados(){
+atualizarStats();
+let html="<b>Anjos já na comunidade Moçambique:</b><br><br>";
+ajudantes.forEach((a,i)=>{
+html+=`<div style="font-size:12px;margin:6px 0">• <b>${a.nome}</b> - ${a.provincia} (${a.bairro}) - ${a.tel} - ${a.skill} <span style="color:red;cursor:pointer" onclick="removerAnjo(${i})">[remover]</span></div>`;
+});
+document.getElementById('listaPendentes').innerHTML=html;
+}
+
+function aprovar(i){
+let a=pendentes.splice(i,1)[0];
+a.status="aprovado";
+ajudantes.push(a);
+localStorage.setItem('anjosAprovadosMZ',JSON.stringify(ajudantes));
+localStorage.setItem('anjosPendentesMZ',JSON.stringify(pendentes));
+
+// Aviso automático para novo Anjo
+let msgAnjo = `Parabéns ${a.nome}! 💜 Foste aprovada como Anjo da Rede de Apoio Seguro Moçambique pela administradora Charmila. Agora já apareces para mulheres que precisam de ajuda em ${a.provincia}. Obrigada!`;
+window.open(`https://wa.me/${a.tel.replace(/[^0-9]/g,'')}?text=${encodeURIComponent(msgAnjo)}`, '_blank');
+
+alert(`${a.nome} aprovada! Já faz parte da comunidade de ${a.provincia} e já aparece para as vítimas.`);
+verPendentes();
+}
+
+function rejeitar(i){pendentes.splice(i,1);localStorage.setItem('anjosPendentesMZ',JSON.stringify(pendentes));verPendentes();}
+function removerAnjo(i){if(confirm('Remover este Anjo?')){ajudantes.splice(i,1);localStorage.setItem('anjosAprovadosMZ',JSON.stringify(ajudantes));verAprovados();}}
+
+let clicks=0;document.addEventListener('click',()=>{clicks++;setTimeout(()=>clicks=0,2000);if(clicks>=3)window.location.href="https://www.google.com";});
+</script>
+</body>
+</html>
